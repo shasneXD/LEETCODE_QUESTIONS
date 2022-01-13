@@ -1,64 +1,15 @@
 class Solution {
 public:
     int romanToInt(string s) {
-        stack<char> stk;
-        int sum=0;
-        for(int i=0;i<s.length();i++)
+        int res{0};
+        std::unordered_map<char, int> rom = {{'I', 1}, {'V', 5}, {'X', 10}, 
+                                             {'L', 50}, {'C', 100}, {'D', 500}, {'M', 1000} };
+        for (int i = s.length()-2; i >= 0; --i)
         {
-            if(s[i]=='M')
-            {
-                if(!stk.empty() && stk.top()=='C')
-                    sum=sum+800;
-                else
-                    sum=sum+1000;
-                stk.push(s[i]);
-            }
-            else if(s[i]=='D')
-            {
-                if(!stk.empty() && stk.top()=='C')
-                    sum=sum+300;
-                else
-                sum=sum+500;
-                stk.push(s[i]);
-            }
-            else if(s[i]=='C')
-            {
-                if(!stk.empty() && stk.top()=='X')
-                    sum=sum+80;
-                else
-                sum=sum+100;
-                stk.push(s[i]);
-            }
-            else if(s[i]=='L')
-            {
-                if(!stk.empty() && stk.top()=='X')
-                    sum=sum+30;
-                else
-                sum=sum+50;
-                stk.push(s[i]);
-            }
-            else if(s[i]=='X')
-            {
-                if(!stk.empty() && stk.top()=='I')
-                    sum=sum+8;
-                else
-                sum=sum+10;
-                stk.push(s[i]);
-            }
-            else if(s[i]=='V')
-            {
-                if(!stk.empty() && stk.top()=='I')
-                    sum=sum+3;
-                else
-                sum=sum+5;
-                stk.push(s[i]);
-            }
-            else if(s[i]=='I')
-            {
-                sum=sum+1;
-                stk.push(s[i]);
-            }
+            if(rom[s[i]] >= rom[s[i+1]]) res += rom[s[i]];
+            else res -= rom[s[i]];
         }
-        return sum;
+        
+        return res + rom[s[s.length()-1]];
     }
 };
