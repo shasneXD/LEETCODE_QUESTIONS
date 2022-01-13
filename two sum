@@ -1,0 +1,15 @@
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        vector<int> solution;
+        for(auto i=nums.begin();i!=nums.end()-1;i++)
+        {   std::vector<int>::iterator it = std::find(i+1,nums.end(),target - *i);
+            if(it != nums.end())
+            {
+                solution.push_back(i-nums.begin());
+                solution.push_back(it-nums.begin());
+            }
+        }
+        return solution;
+    }
+};
